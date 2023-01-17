@@ -4,49 +4,36 @@ const Op = db.Sequelize.Op;
 
 //create and save a new userl
 
-exports.create = (req, res) => {
-    //validate request 
-    // if(!req.body.first_name || !req.body.last_name || !req.body.email || !req.body.profile_picture ||  !req.body.phone_number || 
-    //     !req.body.role_id || !req.body.password) {
-    //     res.status(400).send({
-    //         message:"Cant Save"
-    //     });
-    //     return;
-    // }
-
-    //create a User
+exports.create =  async (req, res) => {
     const m_resolution_center_chat = {
         id: req.body.id,
         resolution_id: req.body.resolution_id,
-        seller_id: req.body.seller_id,
-        buyer_id: req.body.buyer_name,
+        sender_id: req.body.sender_id,
+        sender_name: req.body.sender_name,
+        sending_time: req.body.sending_time,
     }
 
-    //Save User to database
-    M_resolution_center_chat.create(m_resolution_center_chat)
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
+    try {
+        const m_res_cen_chat = await M_resolution_center_chat.create(m_resolution_center_chat)
+        res.status(200).json(m_res_cen_chat)
+    } catch (err ){
         res.status(500).send({
             message:
-                err.message || "Error while trying to create table"
-        });
-    });
-};
-
-    //Retrieve all User from database
-    exports.findAll = (req, res) => {
-        // const sender_name = req.query.resolution_id;
-        // var condition = sender_name ? { sender_name: { [Op.iLike]: `%{id}%` } } : null;
-        M_resolution_center_chat.findAll()
-            .then(data => {
-                res.send(data);
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message:
-                        err.message || "error pas retrieve data cuyyy."
-                });
-            });
+                err.message || "error while trying to create tab"
+        })
     }
+}
+
+
+exports.findAll = async (req, res) => {
+    // const id = req.params.id;
+    try {
+        const m_res_cen_chat_find= await M_resolution_center_chat.findAll()  
+        res.status(200).json(m_res_cen_chat_find);
+    } catch (err){
+        res.status(500).send({
+            message: 
+                err.message || "error while trying to retrieve data"
+        })
+    }
+}

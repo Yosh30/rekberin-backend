@@ -18,7 +18,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         solution_value: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
         status_id: {
             type: Sequelize.INTEGER

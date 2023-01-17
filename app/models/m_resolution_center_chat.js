@@ -8,9 +8,6 @@ module.exports = (sequelize, Sequelize) => {
         resolution_id: {
             type: Sequelize.INTEGER
         },
-        seller_id: {
-            type: Sequelize.INTEGER
-        },
         sender_id: {
             type: Sequelize.INTEGER
         },

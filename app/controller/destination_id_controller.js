@@ -2,44 +2,38 @@ const db = require('../models');
 const Destination_id = db.destination_id;
 const Op = db.Sequelize.Op;
 
-    // //create
-    // exports.create = (req, res) => {
-    //     if ! 
-    // }
 
-exports.create = (req, res) => {
-
-
+exports.create = async (req, res) => {
+    
     const destination_id = {
-        id:  req.body.id,
-        name: req.body.name
+            id: req.body.id,
+            name: req.body.name
     }
 
-    Destination_id.create(destination_id)
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
+    try {
+        const dest_id =  await Destination_id.create(destination_id);
+        res.status(200).json(dest_id)
+    } catch (err) {
+        res.status(500).send({
+            message: 
+                err.message || " error while trying to save data."
+        })
+    }
+} 
+
+
+exports.findAll = async (req, res) => {
+    const name = req.query.name;
+    var condition = name ? { name: {[Op.iLike]: `%{name}`}} : null;
+
+    try {
+        const des_id = await Destination_id.findAll({ where: condition})
+        res.status(200).json(des_id)
+    } catch (err) {
         res.status(500).send({
             message:
-            err.message || "Error while trying to create data"
-        });
-    });
-
-};
-
-    //Retrieve all User from database
-    exports.findAll = (req, res) => {
-        const name = req.query.name;
-        var condition = name ? { name: { [Op.iLike]: `%{name}%` } } : null;
-        Destination_id.findAll({ where: condition})
-            .then(data => {
-                res.send(data);
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message:
-                        err.message || "error pas retrieve data cuyyy."
-                });
-            });
+                err.message || "error to find data."
+        })
     }
+}
+

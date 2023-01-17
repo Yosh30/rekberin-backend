@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         status_name: {
-            type: Sequelize.INTEGER
+            type: Sequelize.STRING
         },
     }, {
         freezeTableName: true

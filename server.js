@@ -32,7 +32,10 @@ const db = require("./app/models");
         require('./app/routes/m_resolution_center_chat_route')(app);
         require('./app/routes/m_resolution_center')(app);
         require('./app/routes/m_resolution_center_detail_route')(app);
-        // require('./app/routes/t_room_routes')(app);
+        require('./app/routes/m_status_route')(app);
+        require('./app/routes/t_room_routes')(app);
+        // require('./app/routes/t_room_detail_route')(app);
+
 
         // set port, listen for requests
         const PORT = process.env.PORT || 8080;
